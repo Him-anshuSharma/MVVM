@@ -2,6 +2,7 @@ package com.himanshu.mvvm.ui.auth
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.himanshu.mvvm.data.repository.UserRepository
 
 class AuthViewModel : ViewModel() {
     var email: String? = null
@@ -15,7 +16,7 @@ class AuthViewModel : ViewModel() {
             authListener?.onFailure("Invalid Email or Password")
             return
         }
-        authListener?.onSuccess()
-        //success
+        val loginResponse = UserRepository().userLogin(email!!,password!!)
+        authListener?.onSuccess(loginResponse)
     }
 }
