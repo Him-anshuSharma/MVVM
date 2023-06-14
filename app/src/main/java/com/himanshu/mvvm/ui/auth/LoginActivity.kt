@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import com.himanshu.mvvm.R
+import com.himanshu.mvvm.data.db.entities.User
 import com.himanshu.mvvm.databinding.ActivityLoginBinding
 import com.himanshu.mvvm.util.hide
 import com.himanshu.mvvm.util.show
@@ -38,11 +39,10 @@ class LoginActivity : AppCompatActivity(),AuthListener {
         }
     }
 
-    override fun onSuccess(loginResponse: LiveData<String>) {
-        loginResponse.observe(this) {
-            progressBar?.hide()
-            toast(it)
-        }
+    override fun onSuccess(user: User ) {
+        toast("${user.username}")
+
+        progressBar?.hide()
     }
 
     override fun onFailure(message: String) {
