@@ -18,7 +18,7 @@ class NetworkConnectionInterceptor(
     @RequiresApi(Build.VERSION_CODES.M)
     override fun intercept(chain: Interceptor.Chain): Response {
         if(!isInternetAvailable()){
-            throw NoInternetException("No Internect Connection")
+            throw NoInternetException("No Internet Connection")
         }
         return chain.proceed(chain.request())
     }
