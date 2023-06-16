@@ -3,13 +3,18 @@ package com.himanshu.mvvm.ui.auth
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.himanshu.mvvm.data.repository.UserRepository
+import com.himanshu.mvvm.util.ApiException
 import com.himanshu.mvvm.util.Coroutines
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel(
+    private val repository: UserRepository
+) : ViewModel() {
     var email: String? = null
     var password: String? = null
 
     var authListener:AuthListener? = null
+
+    fun getLoggedInUser() = repository.getUser()
 
     fun onLoginButtonClicked(view:View) {
         authListener?.onStarted()
@@ -18,12 +23,18 @@ class AuthViewModel : ViewModel() {
             return
         }
         Coroutines.main {
-            val loginResponse = UserRepository().userLogin(email!!, password!!)
-            if(loginResponse.isSuccessful){
-                authListener?.onSuccess(loginResponse.body()?.user!!)
-            }
-            else{
-                authListener?.onFailure(loginResponse.code().toString())
+            try {
+                val authResponse = repository.userLogin(email!!,password!!)
+                authResponse.user?.let {
+                    authListener?.onSuccess(it)
+                    Coroutines.IO {
+                        repository.saveUser(it)
+                    }
+                    return@main
+                }
+                authListener?.onFailure(authResponse.message!!)
+            }catch (e:ApiException){
+                authListener?.onFailure(e.message!!)
             }
         }
     }

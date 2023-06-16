@@ -1,18 +1,20 @@
 package com.himanshu.mvvm.data.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.himanshu.mvvm.data.db.AppDatabase
+import com.himanshu.mvvm.data.db.entities.User
 import com.himanshu.mvvm.data.network.MyApi
+import com.himanshu.mvvm.data.network.SafeApiRequest
 import com.himanshu.mvvm.data.network.responses.AuthResponse
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class UserRepository {
-    suspend fun userLogin(username:String, password:String) : Response<AuthResponse> {
-        return MyApi().userLogin(username,password)
+class UserRepository(
+    private val api:MyApi,
+    private val db: AppDatabase
+):SafeApiRequest() {
+    suspend fun userLogin(username:String, password:String) : AuthResponse {
+        return apiRequest { MyApi().userLogin(username,password) }
     }
 
+    suspend fun saveUser(user: User) = db.getUserDao().upsert(user)
+
+    fun getUser() = db.getUserDao().getUser()
 }
