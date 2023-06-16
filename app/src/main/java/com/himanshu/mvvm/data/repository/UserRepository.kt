@@ -11,7 +11,7 @@ class UserRepository(
     private val db: AppDatabase
 ):SafeApiRequest() {
     suspend fun userLogin(username:String, password:String) : AuthResponse {
-        return apiRequest { MyApi().userLogin(username,password) }
+        return apiRequest { api.userLogin(username,password) }
     }
 
     suspend fun saveUser(user: User) = db.getUserDao().upsert(user)

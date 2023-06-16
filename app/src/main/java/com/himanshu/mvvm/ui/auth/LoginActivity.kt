@@ -15,6 +15,7 @@ import com.himanshu.mvvm.R
 import com.himanshu.mvvm.data.db.AppDatabase
 import com.himanshu.mvvm.data.db.entities.User
 import com.himanshu.mvvm.data.network.MyApi
+import com.himanshu.mvvm.data.network.NetworkConnectionInterceptor
 import com.himanshu.mvvm.data.repository.UserRepository
 import com.himanshu.mvvm.databinding.ActivityLoginBinding
 import com.himanshu.mvvm.ui.home.HomeActivity
@@ -31,7 +32,8 @@ class LoginActivity : AppCompatActivity(),AuthListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val api = MyApi()
+        val networkConnectionInterceptor = NetworkConnectionInterceptor(context = this)
+        val api = MyApi(networkConnectionInterceptor)
         val db = AppDatabase(this)
         val repository = UserRepository(api,db)
         val factory = AuthViewModelFactory(repository)
