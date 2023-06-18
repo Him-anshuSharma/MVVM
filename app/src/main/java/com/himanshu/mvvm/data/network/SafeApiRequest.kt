@@ -17,13 +17,12 @@ abstract class SafeApiRequest {
             val message = StringBuilder()
             error?.let {
                 try {
-                    message.append(JSONObject(it).getString("isSuccessful"))
+                    message.append(JSONObject(it).getString("error"))
                 }catch (e:JSONException){
                 }
                 message.append("\n")
             }
             message.append("Error Code: ${response.code()}")
-
             throw ApiException(message = message.toString())
         }
     }

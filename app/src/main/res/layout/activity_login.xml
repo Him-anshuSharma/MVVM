@@ -10,7 +10,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/root_layout"
+        android:id="@+id/root_layout_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="18dp"
@@ -68,6 +68,7 @@
 
             <Button
                 android:id="@+id/btnSignUp"
+                android:onClick="@{ViewModel::onSignup}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up"

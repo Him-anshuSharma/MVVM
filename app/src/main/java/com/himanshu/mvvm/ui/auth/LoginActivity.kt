@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity(), AuthListener, DIAware {
 
         //views
         progressBar = binding.progressBar
-        coordinatorLayout = binding.rootLayout
+        coordinatorLayout = binding.rootLayoutLogin
 
     }
 

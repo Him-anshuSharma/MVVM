@@ -1,68 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.auth.SignupActivity"
-    android:padding="18dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:gravity="center"
+    <data>
+        <variable
+            name="ViewModel"
+            type="com.himanshu.mvvm.ui.auth.AuthViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/root_layout_signup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.auth.SignupActivity"
+        android:padding="18dp">
 
-        <EditText
-            android:id="@+id/etSignupUsername"
+        <RelativeLayout
+            android:gravity="center"
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:text="@={ViewModel.username}"
+                android:id="@+id/etSignupUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:padding="8dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="Your Username"
+                android:inputType="text" />
+
+            <EditText
+                android:text="@={ViewModel.email}"
+                android:id="@+id/etSignupEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:padding="8dp"
+                android:layout_below="@id/etSignupUsername"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="abc@gmail.com"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:text="@={ViewModel.password}"
+                android:id="@+id/etSignupPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:padding="8dp"
+                android:layout_below="@id/etSignupEmail"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="******"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:text="@={ViewModel.confirmPassword}"
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:padding="8dp"
+                android:layout_below="@id/etSignupPassword"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="******"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up"
+                android:padding="12dp"
+                android:textColor="#FFFFFF"
+                android:onClick="@{ViewModel::onSignupButtonClicked}"
+                android:backgroundTint="#6200EE"
+                android:layout_below="@id/etConfirmPassword" />
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:padding="8dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="16dp"
-            android:autofillHints="abc@gmail.com"
-            android:inputType="text" />
+            android:visibility="gone"
+            android:layout_centerInParent="true" />
 
-        <EditText
-            android:id="@+id/etSignupPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:padding="8dp"
-            android:layout_below="@id/etSignupUsername"
-            android:layout_marginBottom="16dp"
-            android:autofillHints="******"
-            android:inputType="textPassword" />
-
-        <EditText
-            android:id="@+id/etSignupEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:padding="8dp"
-            android:layout_below="@id/etSignupPassword"
-            android:layout_marginBottom="16dp"
-            android:autofillHints="abc@gmail.com"
-            android:inputType="textEmailAddress" />
-
-        <Button
-            android:id="@+id/btnSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_up"
-            android:padding="12dp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#6200EE"
-            android:layout_below="@id/etSignupEmail"/>
-
-
-    </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_centerInParent="true" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
