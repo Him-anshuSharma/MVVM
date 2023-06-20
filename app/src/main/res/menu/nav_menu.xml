@@ -5,6 +5,6 @@
         android:title="@string/home" />
     <item
         android:id="@+id/fragUsers"
-        android:title="@string/users"
+        android:title="@string/events"
         />
 </menu>

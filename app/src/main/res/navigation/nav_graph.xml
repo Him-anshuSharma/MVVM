@@ -10,4 +10,8 @@
         android:name="com.himanshu.mvvm.ui.home.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.himanshu.mvvm.ui.home.events.EventFragment"
+        android:label="EventFragment" />
 </navigation>

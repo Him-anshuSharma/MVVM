@@ -28,7 +28,6 @@ class LoginActivity : AppCompatActivity(), AuthListener, DIAware {
     private var coordinatorLayout: CoordinatorLayout? = null
 
     override val di: DI by closestDI()
-
     private val factory:AuthViewModelFactory by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
