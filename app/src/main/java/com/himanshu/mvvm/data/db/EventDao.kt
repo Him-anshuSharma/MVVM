@@ -16,4 +16,7 @@ interface EventDao {
     @Query("SELECT * FROM Event")
     fun getEvents():LiveData<List<Event>>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveEvent(event:Event)
+
 }

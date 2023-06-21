@@ -6,6 +6,7 @@ import com.himanshu.mvvm.data.db.AppDatabase
 import com.himanshu.mvvm.data.db.entities.Event
 import com.himanshu.mvvm.data.network.MyApi
 import com.himanshu.mvvm.data.network.SafeApiRequest
+import com.himanshu.mvvm.data.network.responses.EventResponse
 import com.himanshu.mvvm.util.Coroutines
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -23,7 +24,7 @@ class EventsRepository(
         }
     }
 
-    private fun saveEvents(events: List<Event>?) {
+    fun saveEvents(events: List<Event>?) {
         Coroutines.IO {
             db.getEventDao().saveAllEvents(events!!)
         }
@@ -36,6 +37,23 @@ class EventsRepository(
         }
     }
 
+    suspend fun addEvent(
+        title:String,
+        description:String,
+        startDate: String,
+        endDate: String,
+        location: String,
+    ):EventResponse{
+        return apiRequest {
+            myApi.addEvent(
+                title,
+                description,
+                startDate,
+                endDate,
+                location
+            )
+        }
+    }
 
     private suspend fun fetchEvents(){
         if(isFetchNeeded()){

@@ -11,6 +11,7 @@ import com.himanshu.mvvm.util.NoInternetException
 class AuthViewModel(
     private val repository: UserRepository
 ) : ViewModel() {
+
     var username: String? = null
     var email: String? = null
     var password: String? = null
@@ -88,3 +89,4 @@ class AuthViewModel(
         }
     }
 }
+//2023-06-20T09:00:00.000Z

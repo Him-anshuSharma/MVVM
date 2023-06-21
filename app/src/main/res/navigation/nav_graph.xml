@@ -14,4 +14,8 @@
         android:id="@+id/eventFragment"
         android:name="com.himanshu.mvvm.ui.home.events.EventFragment"
         android:label="EventFragment" />
+    <fragment
+        android:id="@+id/addEventFragment"
+        android:name="com.himanshu.mvvm.ui.home.events.AddEventFragment"
+        android:label="AddEventFragment" />
 </navigation>

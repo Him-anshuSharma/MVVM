@@ -27,6 +27,16 @@ interface MyApi {
         @Field("password") password: String
     ) : Response<AuthResponse>
 
+    @FormUrlEncoded
+    @POST("add-event")
+    suspend fun addEvent(
+        @Field("title") title: String,
+        @Field("description") description: String,
+        @Field("startDateTime") startDateTime: String,
+        @Field("endDateTime") endDateTime: String,
+        @Field("location") location: String
+    ): Response<EventResponse>
+
     @GET("get-events")
     suspend fun getEvents() : Response<EventResponse>
 

@@ -44,8 +44,11 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragHome -> {
                     navController?.navigate(R.id.profileFragment)
                 }
-                R.id.fragUsers -> {
+                R.id.fragEvent -> {
                     navController?.navigate(R.id.eventFragment)
+                }
+                R.id.fragAddEvent -> {
+                    navController?.navigate(R.id.addEventFragment)
                 }
             }
 

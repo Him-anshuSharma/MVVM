@@ -4,7 +4,10 @@
         android:id="@+id/fragHome"
         android:title="@string/home" />
     <item
-        android:id="@+id/fragUsers"
+        android:id="@+id/fragEvent"
         android:title="@string/events"
         />
+    <item
+        android:id="@+id/fragAddEvent"
+        android:title="Add Event" />
 </menu>
