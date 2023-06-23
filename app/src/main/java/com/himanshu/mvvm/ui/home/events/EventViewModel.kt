@@ -24,6 +24,15 @@ class EventViewModel(
         repository.getEvents()
     }
 
+    fun onStartDateTimeSelected(dateTime:String?){
+        startDateTime = dateTime
+    }
+
+    fun onEndDateTimeSelected(dateTime:String?){
+        endDateTime = dateTime
+    }
+
+
     fun addEvent(view: View){
         listener?.onStarted()
         Coroutines.main {

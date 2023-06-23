@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.databinding.FragmentAddEventBinding
-import com.himanshu.mvvm.databinding.FragmentEventBinding
+import com.himanshu.mvvm.util.DateTimePicker
 import com.himanshu.mvvm.util.hide
 import com.himanshu.mvvm.util.show
 import com.himanshu.mvvm.util.snackbar
@@ -26,6 +26,8 @@ class AddEventFragment : Fragment(),DIAware,EventsListener {
     private var progressBar: ProgressBar? = null
     private var coordinatorLayout: CoordinatorLayout? = null
 
+    private lateinit var dateTimePicker: DateTimePicker
+
 
     override val di: DI by closestDI()
     private val factory:EventViewModelFactory by instance()
@@ -34,8 +36,14 @@ class AddEventFragment : Fragment(),DIAware,EventsListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
         val binding:FragmentAddEventBinding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_add_event,container,false)
         val viewModel = ViewModelProvider(this,factory)[EventViewModel::class.java]
+        var isStartDateSelected:Boolean = true
+
+
+        dateTimePicker = DateTimePicker(binding.root.context)
 
         binding.viewModel = viewModel
         viewModel.listener = this
@@ -44,6 +52,26 @@ class AddEventFragment : Fragment(),DIAware,EventsListener {
 
         progressBar = binding.progressBarEvent
         coordinatorLayout = binding.addEventLayout
+
+        binding.startDateTimeEditText.setOnClickListener {
+            isStartDateSelected = true
+            dateTimePicker.showDateTimePickerDialog()
+        }
+        binding.endDateTimeEditText.setOnClickListener {
+            isStartDateSelected = false
+            dateTimePicker.showDateTimePickerDialog()
+        }
+
+        dateTimePicker.setOnDateTimeSelectedListener(object :DateTimePicker.OnDateTimeSelectedListener{
+            override fun onDateTimeSelected(dateTime: String?) {
+                if(isStartDateSelected) {
+                    binding.startDateTimeEditText.setText(dateTime)
+                }
+                else{
+                    binding.endDateTimeEditText.setText(dateTime)
+                }
+            }
+        })
 
         return binding.root
     }

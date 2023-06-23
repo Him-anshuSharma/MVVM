@@ -41,6 +41,7 @@
             <EditText
                 android:text="@={viewModel.startDateTime}"
                 android:id="@+id/startDateTimeEditText"
+                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Start Date and Time"
@@ -50,6 +51,7 @@
             <EditText
                 android:text="@={viewModel.endDateTime}"
                 android:id="@+id/endDateTimeEditText"
+                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="End Date and Time"
