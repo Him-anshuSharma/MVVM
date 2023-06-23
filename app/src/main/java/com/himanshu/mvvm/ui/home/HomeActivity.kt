@@ -50,6 +50,9 @@ class HomeActivity : AppCompatActivity() {
                 R.id.fragAddEvent -> {
                     navController?.navigate(R.id.addEventFragment)
                 }
+                R.id.fragCalendar -> {
+                    navController?.navigate(R.id.calendarFragment)
+                }
             }
 
             drawerLayout?.closeDrawers()

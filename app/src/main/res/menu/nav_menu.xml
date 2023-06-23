@@ -10,4 +10,7 @@
     <item
         android:id="@+id/fragAddEvent"
         android:title="Add Event" />
+    <item
+        android:id="@+id/fragCalendar"
+        android:title="Calendar" />
 </menu>
