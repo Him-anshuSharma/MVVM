@@ -6,10 +6,7 @@ import com.himanshu.mvvm.R
 
 class CalendarAdapter(private val data: List<String>) : RecyclerView.Adapter<CalendarAdapter.CustomViewHolder>() {
 
-    // ViewHolder class
     class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        // Define your views here
-        // Example: private val textView: TextView = itemView.findViewById(R.id.textView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -19,8 +16,8 @@ class CalendarAdapter(private val data: List<String>) : RecyclerView.Adapter<Cal
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        // Bind data to views inside the ViewHolder
-        // Example: holder.textView.text = data[position]
+//         Bind data to views inside the ViewHolder
+//         Example: holder.textView.text = data[position]
     }
 
     override fun getItemCount(): Int {

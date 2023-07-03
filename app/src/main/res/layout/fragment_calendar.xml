@@ -9,11 +9,16 @@
     </data>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.home.calendar.CalendarFragment">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:clipToPadding="false"
+            android:padding="@dimen/item_offset"
+            android:id="@+id/calendarRView"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
