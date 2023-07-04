@@ -11,8 +11,45 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:padding="20sp"
+        android:gravity="center"
         android:layout_height="match_parent"
         tools:context=".ui.home.calendar.CalendarFragment">
+
+        <LinearLayout
+            android:padding="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="prev"
+                android:padding="20sp"
+                android:textColor="@color/black"
+                android:backgroundTint="#00000000"
+                android:onClick="@{viewModel::prevMonth}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:id="@+id/CurrentMonthName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.calendarCurrentDate}"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp"
+                />
+            <TextView
+                android:padding="20sp"
+                android:text="next"
+                android:textColor="@color/black"
+                android:backgroundTint="#00000000"
+                android:onClick="@{viewModel::nextMonth}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:clipToPadding="false"
