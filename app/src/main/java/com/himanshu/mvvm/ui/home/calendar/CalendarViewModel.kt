@@ -6,11 +6,17 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.himanshu.mvvm.data.repository.EventsRepository
+import com.himanshu.mvvm.util.lazyDeferred
 import java.time.LocalDate
 import java.time.YearMonth
 import java.util.Date
 
-class CalendarViewModel : ViewModel() {
+class CalendarViewModel(
+    private val repository: EventsRepository
+) : ViewModel() {
+
+
     var calendarCurrentDate: MutableLiveData<String> = MutableLiveData<String>()
     private var date = LocalDate.now()
     private var days:MutableList<String> = mutableListOf()
@@ -37,11 +43,11 @@ class CalendarViewModel : ViewModel() {
         return daysLiveData
     }
 
-
     private fun setMonthList(){
         days.clear()
         val buffer = LocalDate.of(date.year, date.month, 1).dayOfWeek.value%7
         var totalDays = YearMonth.of(date.year,date.month).lengthOfMonth()
+        days = mutableListOf("S","M", "T", "W", "Th", "F", "S")
         for(i in 1..buffer){
             days.add("")
         }
