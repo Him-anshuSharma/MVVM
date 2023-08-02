@@ -13,13 +13,8 @@ interface EventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAllEvents(events:List<Event>)
 
-    @Query("SELECT * FROM Event WHERE startDateTime LIKE :date%")
-    fun getEventsByDate(date: String): LiveData<List<Event>>
-
     @Query("SELECT * FROM Event")
     fun getEvents():LiveData<List<Event>>
-
-    @Query("S")
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveEvent(event:Event)

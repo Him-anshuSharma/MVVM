@@ -1,7 +1,9 @@
 package com.himanshu.mvvm.ui.home.events
 
 import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.himanshu.mvvm.data.db.entities.Event
 import com.himanshu.mvvm.data.repository.EventsRepository
 import com.himanshu.mvvm.util.ApiException
 import com.himanshu.mvvm.util.Coroutines
@@ -23,6 +25,7 @@ class EventViewModel(
     val events by lazyDeferred {
         repository.getEvents()
     }
+
 
     fun addEvent(view: View){
         listener?.onStarted()

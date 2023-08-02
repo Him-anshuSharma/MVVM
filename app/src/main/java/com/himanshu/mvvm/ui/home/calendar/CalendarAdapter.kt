@@ -1,3 +1,5 @@
+package com.himanshu.mvvm.ui.home.calendar
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +27,6 @@ class CalendarAdapter(private val data: List<String>) : RecyclerView.Adapter<Cal
             Toast.makeText(it.context,data[position],Toast.LENGTH_SHORT).show()
         }
         holder.date.text = data[position]
-        holder.eventsRV.adapter
     }
 
     override fun getItemCount(): Int {
