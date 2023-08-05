@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Monthly"
+        android:icon="@drawable/ic_baseline_grid_view_24"
+        />
+    <item
+        android:title="Weekly"
+        android:icon="@drawable/ic_baseline_view_list_24"
+        />
+    <item
+        android:title="Daily"
+        android:icon="@drawable/ic_baseline_check_box_outline_blank_24"
+        />
+</menu>

@@ -3,6 +3,8 @@ package com.himanshu.mvvm.ui.home.events
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
+import com.himanshu.mvvm.R
 import com.himanshu.mvvm.data.db.entities.Event
 import com.himanshu.mvvm.data.repository.EventsRepository
 import com.himanshu.mvvm.util.ApiException
@@ -26,6 +28,13 @@ class EventViewModel(
         repository.getEvents()
     }
 
+    fun navigateToAddEvent(view: View){
+        view.findNavController().navigate(R.id.addEventFragment)
+    }
+
+    fun goBack(view:View){
+        view.findNavController().popBackStack()
+    }
 
     fun addEvent(view: View){
         listener?.onStarted()

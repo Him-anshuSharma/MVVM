@@ -9,7 +9,6 @@ import com.himanshu.mvvm.data.repository.UserRepository
 import com.himanshu.mvvm.ui.auth.AuthViewModelFactory
 import com.himanshu.mvvm.ui.home.calendar.CalendarViewModelFactory
 import com.himanshu.mvvm.ui.home.events.EventViewModelFactory
-import com.himanshu.mvvm.ui.home.profile.ProfileViewModel
 import com.himanshu.mvvm.ui.home.profile.ProfileViewModelFactory
 import org.kodein.di.*
 import org.kodein.di.android.x.androidXModule

@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.himanshu.mvvm.data.repository.EventsRepository
 
 class EventViewModelFactory(
-    private val eventsRepository: EventsRepository
-    ): ViewModelProvider.NewInstanceFactory() {
+    private val eventsRepository: EventsRepository,
+): ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return EventViewModel(eventsRepository ) as T
     }

@@ -7,9 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.himanshu.mvvm.R
 
-class CalendarCellAdapter(private val dayEventsList: List<String>): RecyclerView.Adapter<CalendarCellAdapter.CustomViewHolder>() {
+class CalendarCellAdapter(private val dayEventsList: List<String>?): RecyclerView.Adapter<CalendarCellAdapter.CustomViewHolder>() {
     class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val eventName:TextView = itemView.findViewById(R.id.eventName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -19,8 +18,9 @@ class CalendarCellAdapter(private val dayEventsList: List<String>): RecyclerView
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.eventName.text = dayEventsList[position]
     }
 
-    override fun getItemCount(): Int = dayEventsList.size
+    override fun getItemCount(): Int{
+        return dayEventsList?.size ?: 0
+    }
 }

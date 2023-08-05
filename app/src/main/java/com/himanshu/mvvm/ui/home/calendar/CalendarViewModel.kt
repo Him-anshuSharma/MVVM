@@ -1,9 +1,13 @@
 package com.himanshu.mvvm.ui.home.calendar
 
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
+import com.himanshu.mvvm.R
 import com.himanshu.mvvm.data.db.entities.Event
 import com.himanshu.mvvm.data.repository.EventsRepository
 import com.himanshu.mvvm.ui.home.events.EventAdapter
@@ -23,6 +27,7 @@ class CalendarViewModel(
 
     var calendarCurrentDate: MutableLiveData<String> = MutableLiveData<String>()
     private var date = LocalDate.now()
+    private var firstDateOfMonth = LocalDate.of(date.year, date.month, 1)
     private var days:MutableList<String> = mutableListOf()
     private var daysLiveData:MutableLiveData<List<String>> = MutableLiveData()
     private var eventsByDate: HashMap<LocalDate,MutableList<Event>> = HashMap()
@@ -38,7 +43,11 @@ class CalendarViewModel(
         setMonthList()
     }
 
+    fun navigateToAddEvent(view: View){
+        view.findNavController().navigate(R.id.addEventFragment)
+    }
     fun getEventsByDate(events: List<Event>): HashMap<LocalDate, MutableList<Event>> {
+        eventsByDate.clear()
         for(event in events){
             val offsetDateTime = OffsetDateTime.parse(event.startDateTime, formatter)
             val date = offsetDateTime.toLocalDate()
@@ -50,6 +59,11 @@ class CalendarViewModel(
             }
         }
         return eventsByDate
+    }
+
+    fun getCurrDate():LocalDate{
+        firstDateOfMonth = LocalDate.of(date.year, date.month, 1)
+        return firstDateOfMonth
     }
 
     fun prevMonth(view: View){
@@ -68,11 +82,11 @@ class CalendarViewModel(
         return daysLiveData
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setMonthList(){
         days.clear()
         val buffer = LocalDate.of(date.year, date.month, 1).dayOfWeek.value%7
         var totalDays = YearMonth.of(date.year,date.month).lengthOfMonth()
-        days = mutableListOf("S","M", "T", "W", "Th", "F", "S")
         for(i in 1..buffer){
             days.add("")
         }
