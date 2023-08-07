@@ -2,9 +2,11 @@ package com.himanshu.mvvm.ui.home.calendar
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,46 +15,41 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.data.db.entities.Event
 import com.himanshu.mvvm.data.models.EventsByDates
-import com.himanshu.mvvm.databinding.FragmentCalendarBinding
+import com.himanshu.mvvm.databinding.FragmentCalendarMonthlyBinding
 import com.himanshu.mvvm.util.Coroutines
 import com.himanshu.mvvm.util.snackbar
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance
+import java.lang.Exception
 import java.time.LocalDate
 
-
-class CalendarFragment : Fragment(), DIAware {
-
-
-    private var layout = 0
-
-    // 0 monthly
-    // 1 weekly
-    // 2 daily
+class CalendarMonthly : Fragment(), DIAware {
 
     private lateinit var viewModel: CalendarViewModel
     private lateinit var dayList: LiveData<List<String>>
     private var eventsByDate: HashMap<LocalDate, MutableList<Event>> = HashMap()
 
-
     override val di: DI by closestDI()
     private val factory: CalendarViewModelFactory by instance()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
 
-        val binding: FragmentCalendarBinding =
-            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calendar, container, false)
+        val binding: FragmentCalendarMonthlyBinding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calendar_monthly, container, false)
 
         viewModel = ViewModelProvider(requireActivity(), factory)[CalendarViewModel::class.java]
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        binding.calView.setOnClickListener {
+            findNavController().navigate(R.id.calendarThreeDays)
+        }
 
         Coroutines.main {
             val events = viewModel.events.await()
@@ -80,7 +77,7 @@ class CalendarFragment : Fragment(), DIAware {
                                     else{
                                         binding.calendarRView.snackbar("No Events Scheduled")
                                     }
-                                }catch (e:java.lang.Exception){
+                                }catch (e: Exception){
                                     Log.d("Error",e.message.toString())
                                 }
                             }
@@ -91,6 +88,9 @@ class CalendarFragment : Fragment(), DIAware {
                 })
             }
         }
+
+        val list = viewModel.getDatesList()
+        Log.d("fdiv",list.toString())
         return binding.root
     }
 }

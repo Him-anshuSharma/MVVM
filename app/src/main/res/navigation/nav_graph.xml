@@ -23,4 +23,12 @@
         android:name="com.himanshu.mvvm.ui.home.calendar.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/calendarMonthly"
+        android:name="com.himanshu.mvvm.ui.home.calendar.CalendarMonthly"
+        android:label="CalendarMonthly" />
+    <fragment
+        android:id="@+id/calendarThreeDays"
+        android:name="com.himanshu.mvvm.ui.home.calendar.CalendarThreeDays"
+        android:label="CalendarThreeDays" />
 </navigation>

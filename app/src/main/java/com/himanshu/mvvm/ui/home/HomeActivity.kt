@@ -51,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
 //                    navController?.navigate(R.id.addEventFragment)
 //                }
                 R.id.fragCalendar -> {
-                    navController?.navigate(R.id.calendarFragment)
+                    navController?.navigate(R.id.calendarMonthly)
                 }
             }
 

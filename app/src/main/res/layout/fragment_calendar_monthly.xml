@@ -15,7 +15,7 @@
         android:padding="10sp"
         android:gravity="center"
         android:layout_height="match_parent"
-        tools:context=".ui.home.calendar.CalendarFragment">
+        tools:context=".ui.home.calendar.CalendarMonthly">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

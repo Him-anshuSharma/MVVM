@@ -14,6 +14,7 @@ class CalendarAdapter(private val data: List<String>,private val eventsByDate: H
 
 
     private lateinit var mDayClickListener: onDayClickListener
+
     interface onDayClickListener{
         fun onDayClicked(position: String)
     }
