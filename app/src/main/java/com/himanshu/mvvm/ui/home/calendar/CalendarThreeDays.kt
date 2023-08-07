@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.databinding.FragmentCalendarThreeDaysBinding
 import org.kodein.di.DI
@@ -55,6 +56,10 @@ class CalendarThreeDays : Fragment(), DIAware {
         }
         val swipeListener  = SwipeListener(dayTextViews,viewModel)
         binding.dayList.setOnTouchListener(swipeListener)
+
+        binding.calViewWeekly.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         val list = viewModel.getDatesList()
         for(i in 0..6){

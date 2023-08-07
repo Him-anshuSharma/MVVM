@@ -47,7 +47,7 @@ class CalendarMonthly : Fragment(), DIAware {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.calView.setOnClickListener {
+        binding.calViewMonthly.setOnClickListener {
             findNavController().navigate(R.id.calendarThreeDays)
         }
 
