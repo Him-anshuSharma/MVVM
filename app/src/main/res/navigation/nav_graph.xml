@@ -19,11 +19,6 @@
         android:name="com.himanshu.mvvm.ui.home.events.AddEventFragment"
         android:label="AddEventFragment" />
     <fragment
-        android:id="@+id/calendarFragment"
-        android:name="com.himanshu.mvvm.ui.home.calendar.CalendarFragment"
-        android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
-    <fragment
         android:id="@+id/calendarMonthly"
         android:name="com.himanshu.mvvm.ui.home.calendar.CalendarMonthly"
         android:label="CalendarMonthly" />

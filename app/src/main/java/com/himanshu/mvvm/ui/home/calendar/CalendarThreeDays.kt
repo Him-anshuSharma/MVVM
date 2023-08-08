@@ -2,6 +2,7 @@ package com.himanshu.mvvm.ui.home.calendar
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -11,10 +12,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.himanshu.mvvm.R
+import com.himanshu.mvvm.data.db.entities.Event
+import com.himanshu.mvvm.data.models.EventsByDates
 import com.himanshu.mvvm.databinding.FragmentCalendarThreeDaysBinding
+import com.himanshu.mvvm.util.Coroutines
+import com.himanshu.mvvm.util.snackbar
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
@@ -33,6 +41,7 @@ class CalendarThreeDays : Fragment(), DIAware {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
+
         val binding: FragmentCalendarThreeDaysBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calendar_three_days, container, false)
 
@@ -40,7 +49,6 @@ class CalendarThreeDays : Fragment(), DIAware {
 
         viewModel = ViewModelProvider(requireActivity(), factory)[CalendarViewModel::class.java]
 
-        val currDate = viewModel.getCurrDate()
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -55,13 +63,12 @@ class CalendarThreeDays : Fragment(), DIAware {
             binding.day7
         )
 
-        val swipeListener  = SwipeListener(dayTextViews,viewModel)
+
+        val swipeListener  = SwipeListener(binding,dayTextViews,viewModel)
 
         for (textView in dayTextViews) {
             textView?.setOnTouchListener(swipeListener)
         }
-
-
 
         binding.calViewWeekly.setOnClickListener {
             findNavController().popBackStack()
@@ -71,6 +78,7 @@ class CalendarThreeDays : Fragment(), DIAware {
         for(i in 0..6){
             dayTextViews[i]?.text = list[i].toString()
         }
+
         for(tv in dayTextViews){
             if(tv?.text.toString() == viewModel.getCurrDate().dayOfMonth.toString()){
                 tv?.setTextColor(Color.WHITE)
@@ -82,9 +90,29 @@ class CalendarThreeDays : Fragment(), DIAware {
             }
         }
 
+        Coroutines.main {
+            val events = viewModel.events.await()
+            events.observe(viewLifecycleOwner,Observer{
+                viewModel.getEventsByDate(events = events!!.value!!)
+                binding.calendarThreeDaysRV.adapter = CalendarDayEventAdapter(
+                    viewModel.getDayEvents(
+                        viewModel.getCurrDate()
+                    )
+                )
+            })
+        }
+        binding.calendarThreeDaysRV.layoutManager = LinearLayoutManager(context)
+        binding.calendarThreeDaysRV.adapter = CalendarDayEventAdapter(
+            viewModel.getDayEvents(
+                viewModel.getCurrDate()
+            )
+        )
+
         return binding.root
     }
-    class SwipeListener(private val textViews: Array<TextView?>, val viewModel: CalendarViewModel) : View.OnTouchListener {
+
+
+    class SwipeListener(private val binding: FragmentCalendarThreeDaysBinding,private val textViews: Array<TextView?>, val viewModel: CalendarViewModel) : View.OnTouchListener {
         private var startX = 0f
         private var startY = 0f
 
@@ -129,6 +157,11 @@ class CalendarThreeDays : Fragment(), DIAware {
                                 tv?.setBackgroundColor(Color.TRANSPARENT)
                             }
                         }
+                        binding.calendarThreeDaysRV.adapter = CalendarDayEventAdapter(
+                            viewModel.getDayEvents(
+                                LocalDate.of(viewModel.getCurrDate().year,viewModel.getCurrDate().month,textView.text.toString().toInt())
+                            )
+                        )
 
                     }
                 }

@@ -19,6 +19,8 @@ import com.himanshu.mvvm.data.models.EventsByDates
 import com.himanshu.mvvm.databinding.FragmentCalendarMonthlyBinding
 import com.himanshu.mvvm.util.Coroutines
 import com.himanshu.mvvm.util.snackbar
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
@@ -61,27 +63,33 @@ class CalendarMonthly : Fragment(), DIAware {
                 eventsByDate = viewModel.getEventsByDate(events.value!!)
                 binding.calendarRView.layoutManager = GridLayoutManager(this.context, 7)
                 dayList = viewModel.getMonthListLiveData()
-
                 dayList.observe(this.viewLifecycleOwner, Observer {
-                    val adapter = CalendarAdapter(dayList.value!!,eventsByDate,viewModel.getFirstDateOfMonth())
+                    val adapter = CalendarAdapter(
+                        dayList.value!!,
+                        eventsByDate,
+                        viewModel.getFirstDateOfMonth()
+                    )
                     binding.calendarRView.adapter = adapter
 
-                    adapter.setOnDayClickListener(object :CalendarAdapter.onDayClickListener{
+                    adapter.setOnDayClickListener(object : CalendarAdapter.onDayClickListener {
                         override fun onDayClicked(position: String) {
                             val bundle: Bundle = Bundle()
-                            if(!position.equals("")){
-                                try{
+                            if (!position.equals("")) {
+                                try {
                                     val pos = position.toInt()
-                                    val date = viewModel.getFirstDateOfMonth().plusDays((pos-1).toLong())
-                                    if(eventsByDate.containsKey(date)) {
-                                        bundle.putSerializable("date", EventsByDates(eventsByDate[date]!!.toList()))
+                                    val date =
+                                        viewModel.getFirstDateOfMonth().plusDays((pos - 1).toLong())
+                                    if (eventsByDate.containsKey(date)) {
+                                        bundle.putSerializable(
+                                            "date",
+                                            EventsByDates(eventsByDate[date]!!.toList())
+                                        )
                                         findNavController().navigate(R.id.eventFragment, bundle)
-                                    }
-                                    else{
+                                    } else {
                                         binding.calendarRView.snackbar("No Events Scheduled")
                                     }
-                                }catch (e: Exception){
-                                    Log.d("Error",e.message.toString())
+                                } catch (e: Exception) {
+                                    Log.d("Error", e.message.toString())
                                 }
                             }
                         }

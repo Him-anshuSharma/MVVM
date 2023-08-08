@@ -1,6 +1,7 @@
 package com.himanshu.mvvm.ui.home.calendar
 
 import android.os.Build
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
@@ -84,6 +85,18 @@ class CalendarViewModel(
 
     fun getCurrDate(): LocalDate = date
 
+    fun getDayEvents(date:LocalDate): List<Event> {
+        return if(eventsByDate.containsKey(date)) {
+            eventsByDate[date]!!.toList()
+        } else{
+            listOf()
+        }
+    }
+
+    fun addEvent(pair: Pair<LocalDate,MutableList<Event>>){
+        eventsByDate[pair.first]?.addAll(pair.second)
+    }
+
     fun getEventsByDate(events: List<Event>): HashMap<LocalDate, MutableList<Event>> {
         eventsByDate.clear()
         for(event in events){
@@ -120,8 +133,7 @@ class CalendarViewModel(
         return daysLiveData
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun setMonthList(){
+    fun setMonthList(){
         days.clear()
         val buffer = LocalDate.of(date.year, date.month, 1).dayOfWeek.value%7
         var totalDays = YearMonth.of(date.year,date.month).lengthOfMonth()
