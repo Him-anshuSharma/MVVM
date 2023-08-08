@@ -29,7 +29,6 @@ class EventAdapter(private val events: List<Event>) : RecyclerView.Adapter<Event
         return EventViewHolder(itemView)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val event = events[position]
         val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME

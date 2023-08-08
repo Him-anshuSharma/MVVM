@@ -9,6 +9,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.databinding.FragmentAddEventBinding
 import com.himanshu.mvvm.util.DateTimePicker
@@ -85,12 +86,14 @@ class AddEventFragment : Fragment(),DIAware,EventsListener {
     override fun onSuccess() {
         progressBar?.hide()
         coordinatorLayout?.snackbar("Event Created")
+        this.findNavController().popBackStack()
 
     }
 
     override fun onFailure(message: String) {
         progressBar?.hide()
         coordinatorLayout?.snackbar(message)
+        this.findNavController().popBackStack()
     }
 
 }
