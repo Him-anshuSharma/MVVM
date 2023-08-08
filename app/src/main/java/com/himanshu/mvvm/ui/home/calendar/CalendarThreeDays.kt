@@ -1,11 +1,13 @@
 package com.himanshu.mvvm.ui.home.calendar
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -17,6 +19,8 @@ import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance
+import org.w3c.dom.Text
+import java.time.LocalDate
 import kotlin.math.abs
 
 class CalendarThreeDays : Fragment(), DIAware {
@@ -27,21 +31,17 @@ class CalendarThreeDays : Fragment(), DIAware {
     override val di: DI by closestDI()
     private val factory: CalendarViewModelFactory by instance()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
         val binding: FragmentCalendarThreeDaysBinding =
-            DataBindingUtil.inflate(
-                layoutInflater,
-                R.layout.fragment_calendar_three_days,
-                container,
-                false
-            )
+            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calendar_three_days, container, false)
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
         viewModel = ViewModelProvider(requireActivity(), factory)[CalendarViewModel::class.java]
+
+        val currDate = viewModel.getCurrDate()
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -54,11 +54,14 @@ class CalendarThreeDays : Fragment(), DIAware {
             binding.day6,
             binding.day7
         )
-        for (textView in dayTextViews) {
-            textView?.isFocusable = false
-        }
+
         val swipeListener  = SwipeListener(dayTextViews,viewModel)
-        binding.dayList.setOnTouchListener(swipeListener)
+
+        for (textView in dayTextViews) {
+            textView?.setOnTouchListener(swipeListener)
+        }
+
+
 
         binding.calViewWeekly.setOnClickListener {
             findNavController().popBackStack()
@@ -67,6 +70,16 @@ class CalendarThreeDays : Fragment(), DIAware {
         val list = viewModel.getDatesList()
         for(i in 0..6){
             dayTextViews[i]?.text = list[i].toString()
+        }
+        for(tv in dayTextViews){
+            if(tv?.text.toString() == viewModel.getCurrDate().dayOfMonth.toString()){
+                tv?.setTextColor(Color.WHITE)
+                tv?.setBackgroundColor(Color.BLACK)
+            }
+            else{
+                tv?.setTextColor(Color.GRAY)
+                tv?.setBackgroundColor(Color.TRANSPARENT)
+            }
         }
 
         return binding.root
@@ -102,6 +115,21 @@ class CalendarThreeDays : Fragment(), DIAware {
                                 textViews[i]?.text = list[i].toString()
                             }
                         }
+                    }
+                    else{
+                        val textView = v as TextView
+                        Toast.makeText(v.context,textView.text.toString(),Toast.LENGTH_SHORT).show()
+                        for(tv in textViews){
+                            if(tv?.text.toString() == textView.text.toString()){
+                                tv?.setTextColor(Color.WHITE)
+                                tv?.setBackgroundColor(Color.BLACK)
+                            }
+                            else{
+                                tv?.setTextColor(Color.GRAY)
+                                tv?.setBackgroundColor(Color.TRANSPARENT)
+                            }
+                        }
+
                     }
                 }
             }

@@ -125,8 +125,7 @@
 
         <LinearLayout
             android:id="@+id/dayList"
-            android:layout_weight="1"
-            android:paddingVertical="10dp"
+            android:layout_marginVertical="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -135,6 +134,7 @@
                 android:id="@+id/day1"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
@@ -145,6 +145,7 @@
                 android:id="@+id/day2"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2"
@@ -155,6 +156,7 @@
                 android:id="@+id/day3"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3"
@@ -165,6 +167,7 @@
                 android:id="@+id/day4"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4"
@@ -175,6 +178,7 @@
                 android:id="@+id/day5"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
@@ -185,6 +189,7 @@
                 android:id="@+id/day6"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="6"
@@ -195,12 +200,23 @@
                 android:id="@+id/day7"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="7"
                 android:textSize="18sp"
                 />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="15dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
 
