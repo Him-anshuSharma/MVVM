@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.himanshu.mvvm.data.db.AppDatabase
 import com.himanshu.mvvm.data.db.entities.Event
+import com.himanshu.mvvm.data.db.entities.User
 import com.himanshu.mvvm.data.network.MyApi
 import com.himanshu.mvvm.data.network.SafeApiRequest
 import com.himanshu.mvvm.data.network.responses.EventResponse
@@ -14,13 +15,21 @@ import kotlinx.coroutines.withContext
 class EventsRepository(
     private val myApi: MyApi,
     private val db: AppDatabase
-): SafeApiRequest() {
+) : SafeApiRequest() {
 
+    private var uid: Int? = -1
     private val events = MutableLiveData<List<Event>>()
+    private var user: LiveData<User> = db.getUserDao().getUser()
 
-    init{
-        events.observeForever{
+    init {
+
+        events.observeForever {
             saveEvents(it)
+        }
+
+        user.observeForever {
+            uid = it?.id
+
         }
     }
 
@@ -30,35 +39,38 @@ class EventsRepository(
         }
     }
 
-    suspend fun getEvents(): LiveData<List<Event>>{
-        return withContext(Dispatchers.IO){
+    suspend fun getEvents(): LiveData<List<Event>> {
+        return withContext(Dispatchers.IO) {
             fetchEvents()
             db.getEventDao().getEvents()
         }
     }
 
     suspend fun addEvent(
-        title:String,
-        description:String,
+        title: String,
+        description: String,
         startDate: String,
         endDate: String,
         location: String,
-    ):EventResponse{
+    ): EventResponse {
         return apiRequest {
             myApi.addEvent(
                 title,
                 description,
                 startDate,
                 endDate,
-                location
+                location,
+                uid!!
             )
         }
     }
 
-    private suspend fun fetchEvents(){
-        if(isFetchNeeded()){
-            val response = apiRequest { myApi.getEvents() }
-            events.postValue(response.events )
+    private suspend fun fetchEvents() {
+        if (isFetchNeeded()) {
+            if (uid != -1) {
+                val response = apiRequest { myApi.getEvents(user.value?.id) }
+                events.postValue(response.events)
+            }
         }
     }
 

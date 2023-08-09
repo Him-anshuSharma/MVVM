@@ -6,10 +6,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface MyApi {
     @FormUrlEncoded
@@ -28,22 +25,21 @@ interface MyApi {
     ) : Response<AuthResponse>
 
     @FormUrlEncoded
-    @POST("add-event")
+    @POST("add-user-event")
     suspend fun addEvent(
         @Field("title") title: String,
         @Field("description") description: String,
         @Field("startDateTime") startDateTime: String,
         @Field("endDateTime") endDateTime: String,
-        @Field("location") location: String
+        @Field("location") location: String,
+        @Field("uid") uid: Int,
     ): Response<EventResponse>
 
-    @GET("get-events")
-    suspend fun getEvents() : Response<EventResponse>
+    @GET("get-events/{id}")
+    suspend fun getEvents(@Path("id") uid: Int?): Response<EventResponse>
 
-    companion object{
-        operator fun invoke(
-            networkConnectionInterceptor: NetworkConnectionInterceptor
-        ) : MyApi{
+    companion object {
+        operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): MyApi {
 
             val okHttpClient = OkHttpClient.Builder().addInterceptor(networkConnectionInterceptor).build()
 
@@ -55,4 +51,5 @@ interface MyApi {
                 .create(MyApi::class.java)
         }
     }
+
 }

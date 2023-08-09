@@ -17,7 +17,6 @@ class EventViewModel(
 ) : ViewModel() {
 
     var listener:EventsListener? = null
-
     var title: String? = null
     var description: String? = null
     var startDateTime: String? = null
@@ -45,7 +44,7 @@ class EventViewModel(
                     description!!,
                     startDateTime!!,
                     endDateTime!!,
-                    location!!
+                    location!!,
                 )
                 response.events.let {
                     listener?.onSuccess()
