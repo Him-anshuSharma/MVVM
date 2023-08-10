@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/eventFragment"
-        android:name="com.himanshu.mvvm.ui.home.events.EventFragment"
+        android:name="com.himanshu.mvvm.ui.home.events.EventListFragment"
         android:label="EventFragment" />
     <fragment
         android:id="@+id/addEventFragment"
@@ -26,4 +26,8 @@
         android:id="@+id/calendarThreeDays"
         android:name="com.himanshu.mvvm.ui.home.calendar.CalendarThreeDays"
         android:label="CalendarThreeDays" />
+    <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="com.himanshu.mvvm.ui.home.events.EventDetailFragment"
+        android:label="EventDetailFragment" />
 </navigation>

@@ -2,7 +2,7 @@ package com.himanshu.mvvm.data.db.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
+import java.io.Serializable
 
 @Entity
 data class Event(
@@ -15,4 +15,4 @@ data class Event(
     val location: String,
     val createdOn: String,
     val __v: Int
-)
+): Serializable

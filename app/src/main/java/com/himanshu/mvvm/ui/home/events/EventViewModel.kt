@@ -1,5 +1,6 @@
 package com.himanshu.mvvm.ui.home.events
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +28,11 @@ class EventViewModel(
         repository.getEvents()
     }
 
+    fun getEventByDate(date:String):LiveData<List<Event>>{
+        val data = repository.getEventByDate(date)
+        return data
+    }
+
     fun navigateToAddEvent(view: View){
         view.findNavController().navigate(R.id.addEventFragment)
     }
@@ -34,6 +40,16 @@ class EventViewModel(
     fun goBack(view:View){
         view.findNavController().popBackStack()
     }
+
+    suspend fun deleteEvent(event: Event):Boolean{
+        val response  = repository.deleteEvent(event)
+        if(response.isSuccessful){
+            repository.updateEvents(response.events)
+            return true
+        }
+        return false
+    }
+
 
     fun addEvent(view: View){
         listener?.onStarted()

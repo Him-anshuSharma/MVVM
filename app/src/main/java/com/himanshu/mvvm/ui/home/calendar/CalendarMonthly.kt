@@ -77,17 +77,11 @@ class CalendarMonthly : Fragment(), DIAware {
                             if (!position.equals("")) {
                                 try {
                                     val pos = position.toInt()
-                                    val date =
-                                        viewModel.getFirstDateOfMonth().plusDays((pos - 1).toLong())
-                                    if (eventsByDate.containsKey(date)) {
-                                        bundle.putSerializable(
-                                            "date",
-                                            EventsByDates(eventsByDate[date]!!.toList())
-                                        )
-                                        findNavController().navigate(R.id.eventFragment, bundle)
-                                    } else {
-                                        binding.calendarRView.snackbar("No Events Scheduled")
-                                    }
+                                    val date = viewModel.getFirstDateOfMonth().plusDays((pos - 1).toLong())
+
+                                    bundle.putString("date", "$date%")
+                                    findNavController().navigate(R.id.eventFragment, bundle)
+
                                 } catch (e: Exception) {
                                     Log.d("Error", e.message.toString())
                                 }
@@ -99,9 +93,6 @@ class CalendarMonthly : Fragment(), DIAware {
                 })
             }
         }
-
-        val list = viewModel.getDatesList()
-        Log.d("fdiv",list.toString())
         return binding.root
     }
 }

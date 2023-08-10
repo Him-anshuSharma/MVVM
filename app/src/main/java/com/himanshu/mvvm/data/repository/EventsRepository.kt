@@ -33,12 +33,32 @@ class EventsRepository(
         }
     }
 
+    suspend fun deleteEvent(event: Event):EventResponse{
+        return apiRequest {
+            myApi.deleteEvent(
+                event.title,
+                event.description,
+                event.startDateTime,
+                event.endDateTime,
+                event.location,
+            )
+        }
+    }
+
+    fun getEventByDate(date:String):LiveData<List<Event>>{
+        return db.getEventDao().getEventByDate(date)
+    }
+
     fun saveEvents(events: List<Event>?) {
         Coroutines.IO {
+            db.getEventDao().deleteEvents()
             db.getEventDao().saveAllEvents(events!!)
         }
     }
 
+    fun updateEvents(newEvents: List<Event>){
+        events.postValue(newEvents)
+    }
     suspend fun getEvents(): LiveData<List<Event>> {
         return withContext(Dispatchers.IO) {
             fetchEvents()

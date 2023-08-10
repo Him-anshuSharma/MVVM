@@ -35,6 +35,16 @@ interface MyApi {
         @Field("uid") uid: Int,
     ): Response<EventResponse>
 
+    @FormUrlEncoded
+    @POST("delete-event")
+    suspend fun deleteEvent(
+        @Field("title") title: String,
+        @Field("description") description: String,
+        @Field("startDateTime") startDateTime: String,
+        @Field("endDateTime") endDateTime: String,
+        @Field("location") location: String,
+    ): Response<EventResponse>
+
     @GET("get-events/{id}")
     suspend fun getEvents(@Path("id") uid: Int?): Response<EventResponse>
 
