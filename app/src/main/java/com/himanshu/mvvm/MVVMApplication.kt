@@ -7,6 +7,8 @@ import com.himanshu.mvvm.data.network.NetworkConnectionInterceptor
 import com.himanshu.mvvm.data.repository.EventsRepository
 import com.himanshu.mvvm.data.repository.UserRepository
 import com.himanshu.mvvm.ui.auth.AuthViewModelFactory
+import com.himanshu.mvvm.ui.home.HomeActivityViewModel
+import com.himanshu.mvvm.ui.home.HomeActivityViewModelFactory
 import com.himanshu.mvvm.ui.home.calendar.CalendarViewModelFactory
 import com.himanshu.mvvm.ui.home.events.EventViewModelFactory
 import com.himanshu.mvvm.ui.home.profile.ProfileViewModelFactory
@@ -21,6 +23,7 @@ class MVVMApplication : Application(), DIAware {
         bindSingleton { AppDatabase(instance()) }
         bindSingleton { UserRepository(instance(), instance()) }
         bindSingleton { EventsRepository(instance(),instance())}
+        bindSingleton { HomeActivityViewModelFactory(instance()) }
         bindSingleton { AuthViewModelFactory(instance()) }
         bindSingleton { ProfileViewModelFactory(instance()) }
         bindSingleton { EventViewModelFactory(instance()) }

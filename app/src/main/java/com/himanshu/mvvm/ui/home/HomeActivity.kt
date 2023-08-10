@@ -1,9 +1,11 @@
 package com.himanshu.mvvm.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -11,19 +13,31 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.himanshu.mvvm.R
-import com.himanshu.mvvm.ui.home.profile.ProfileViewModel
-import com.himanshu.mvvm.util.toast
+import com.himanshu.mvvm.databinding.ActivityHomeBinding
+import com.himanshu.mvvm.ui.auth.LoginActivity
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
+import org.kodein.di.instance
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), DIAware {
 
     private var toolbar: Toolbar? = null
     private var navView: NavigationView? = null
     private var drawerLayout: DrawerLayout? = null
 
+
+    override val di: DI by closestDI()
+
+    private val factory: HomeActivityViewModelFactory by instance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+
+        val viewModel:HomeActivityViewModel = ViewModelProvider(owner = this, factory = factory)[HomeActivityViewModel::class.java]
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -52,6 +66,14 @@ class HomeActivity : AppCompatActivity() {
 //                }
                 R.id.fragCalendar -> {
                     navController?.navigate(R.id.calendarMonthly)
+                }
+                R.id.logout -> {
+                    viewModel.onLogout().let {
+                        val intent = Intent(this, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
 

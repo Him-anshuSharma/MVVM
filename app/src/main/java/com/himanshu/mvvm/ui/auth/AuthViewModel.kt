@@ -42,6 +42,8 @@ class AuthViewModel(
                 authListener?.onFailure(e.message!!)
             }catch (e:NoInternetException){
                 authListener?.onFailure((e.message!!))
+            }catch (e:Exception){
+                authListener?.onFailure(e.message!!)
             }
         }
     }
@@ -84,6 +86,8 @@ class AuthViewModel(
             }catch (e: ApiException){
                 authListener?.onFailure(e.message!!)
             }catch (e:NoInternetException){
+                authListener?.onFailure((e.message!!))
+            }catch (e:Exception){
                 authListener?.onFailure((e.message!!))
             }
         }

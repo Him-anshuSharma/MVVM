@@ -13,4 +13,7 @@
     <item
         android:id="@+id/fragCalendar"
         android:title="Calendar" />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
 </menu>
