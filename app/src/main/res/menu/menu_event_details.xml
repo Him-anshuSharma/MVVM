@@ -3,6 +3,7 @@
     <item
         android:id="@+id/action_delete"
         android:title="Delete"
+        android:iconTint="@color/white"
         android:icon="@drawable/ic_menu_delete"
         app:showAsAction="always" />
 </menu>
