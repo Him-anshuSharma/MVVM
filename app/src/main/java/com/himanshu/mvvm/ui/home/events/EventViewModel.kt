@@ -41,13 +41,12 @@ class EventViewModel(
         view.findNavController().popBackStack()
     }
 
+    fun deleteEventFromCache(event: Event){
+        repository.deleteEventFromCache(event)
+    }
+
     suspend fun deleteEvent(event: Event):Boolean{
-        val response  = repository.deleteEvent(event)
-        if(response.isSuccessful){
-            repository.updateEvents(response.events)
-            return true
-        }
-        return false
+        return repository.deleteEvent(event).isSuccessful
     }
 
 

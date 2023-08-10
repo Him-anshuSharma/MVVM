@@ -30,6 +30,8 @@ import java.time.LocalDate
 
 class CalendarMonthly : Fragment(), DIAware {
 
+    private lateinit var binding: FragmentCalendarMonthlyBinding
+    private lateinit var adapter: CalendarAdapter
     private lateinit var viewModel: CalendarViewModel
     private lateinit var dayList: LiveData<List<String>>
     private var eventsByDate: HashMap<LocalDate, MutableList<Event>> = HashMap()
@@ -42,8 +44,7 @@ class CalendarMonthly : Fragment(), DIAware {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentCalendarMonthlyBinding =
-            DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calendar_monthly, container, false)
+        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calendar_monthly, container, false)
 
         viewModel = ViewModelProvider(requireActivity(), factory)[CalendarViewModel::class.java]
 
@@ -52,47 +53,77 @@ class CalendarMonthly : Fragment(), DIAware {
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
+        dayList = viewModel.getMonthListLiveData()
+        dayList.observe(viewLifecycleOwner, Observer {
+            adapter = CalendarAdapter(
+                dayList.value!!,
+                eventsByDate,
+                viewModel.getFirstDateOfMonth()
+            )
+            binding.calendarRView.layoutManager = GridLayoutManager(context,7)
+            adapter.setOnDayClickListener(object: CalendarAdapter.onDayClickListener{
+                override fun onDayClicked(position: String) {
+                    val bundle = Bundle()
+                    if (position != "") {
+                        try {
+                            val pos = position.toInt()
+                            val date = viewModel.getFirstDateOfMonth().plusDays((pos - 1).toLong())
+
+                            bundle.putString("date", "$date%")
+                            findNavController().navigate(R.id.eventFragment, bundle)
+
+                        } catch (e: Exception) {
+                            Log.d("Error", e.message.toString())
+                        }
+                    }
+                }
+
+            })
+            binding.calendarRView.adapter = adapter
+
+        })
+
         binding.calViewMonthly.setOnClickListener {
             findNavController().navigate(R.id.calendarThreeDays)
         }
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val events = viewModel.events
         Coroutines.main {
-            val events = viewModel.events.await()
-            events.observe(viewLifecycleOwner) {
+            events.await().observeForever{
+                eventsByDate = viewModel.getEventsByDate(it)
+                Log.d("Him",eventsByDate.toString())
+                adapter = CalendarAdapter(
+                    dayList.value!!,
+                    eventsByDate,
+                    viewModel.getFirstDateOfMonth()
+                )
+                binding.calendarRView.layoutManager = GridLayoutManager(context,7)
+                adapter.setOnDayClickListener(object: CalendarAdapter.onDayClickListener{
+                    override fun onDayClicked(position: String) {
+                        val bundle = Bundle()
+                        if (position != "") {
+                            try {
+                                val pos = position.toInt()
+                                val date = viewModel.getFirstDateOfMonth().plusDays((pos - 1).toLong())
 
-                eventsByDate = viewModel.getEventsByDate(events.value!!)
-                binding.calendarRView.layoutManager = GridLayoutManager(this.context, 7)
-                dayList = viewModel.getMonthListLiveData()
-                dayList.observe(this.viewLifecycleOwner, Observer {
-                    val adapter = CalendarAdapter(
-                        dayList.value!!,
-                        eventsByDate,
-                        viewModel.getFirstDateOfMonth()
-                    )
-                    binding.calendarRView.adapter = adapter
+                                bundle.putString("date", "$date%")
+                                findNavController().navigate(R.id.eventFragment, bundle)
 
-                    adapter.setOnDayClickListener(object : CalendarAdapter.onDayClickListener {
-                        override fun onDayClicked(position: String) {
-                            val bundle: Bundle = Bundle()
-                            if (!position.equals("")) {
-                                try {
-                                    val pos = position.toInt()
-                                    val date = viewModel.getFirstDateOfMonth().plusDays((pos - 1).toLong())
-
-                                    bundle.putString("date", "$date%")
-                                    findNavController().navigate(R.id.eventFragment, bundle)
-
-                                } catch (e: Exception) {
-                                    Log.d("Error", e.message.toString())
-                                }
+                            } catch (e: Exception) {
+                                Log.d("Error", e.message.toString())
                             }
                         }
-
-                    })
+                    }
 
                 })
+                binding.calendarRView.adapter = adapter
             }
         }
-        return binding.root
     }
 }

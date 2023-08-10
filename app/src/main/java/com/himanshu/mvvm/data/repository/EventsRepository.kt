@@ -33,8 +33,12 @@ class EventsRepository(
         }
     }
 
+    fun deleteEventFromCache(event: Event){
+        db.getEventDao().deleteEventByTitleAndStartDateTime(event.title,event.startDateTime)
+    }
+
     suspend fun deleteEvent(event: Event):EventResponse{
-        return apiRequest {
+        val response = apiRequest {
             myApi.deleteEvent(
                 event.title,
                 event.description,
@@ -43,6 +47,7 @@ class EventsRepository(
                 event.location,
             )
         }
+        return response
     }
 
     fun getEventByDate(date:String):LiveData<List<Event>>{
@@ -56,9 +61,6 @@ class EventsRepository(
         }
     }
 
-    fun updateEvents(newEvents: List<Event>){
-        events.postValue(newEvents)
-    }
     suspend fun getEvents(): LiveData<List<Event>> {
         return withContext(Dispatchers.IO) {
             fetchEvents()

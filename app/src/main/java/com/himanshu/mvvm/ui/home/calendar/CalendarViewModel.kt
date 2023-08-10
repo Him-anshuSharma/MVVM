@@ -130,10 +130,11 @@ class CalendarViewModel(
     }
 
     fun getMonthListLiveData(): MutableLiveData<List<String>> {
+        setMonthList()
         return daysLiveData
     }
 
-    fun setMonthList(){
+    private fun setMonthList(){
         days.clear()
         val buffer = LocalDate.of(date.year, date.month, 1).dayOfWeek.value%7
         var totalDays = YearMonth.of(date.year,date.month).lengthOfMonth()

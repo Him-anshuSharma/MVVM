@@ -21,6 +21,9 @@ interface EventDao {
     @Query("DELETE FROM Event")
     fun deleteEvents():Int
 
+    @Query("DELETE FROM Event WHERE title = :eventTitle AND startDateTime = :eventStartDateTime")
+    fun deleteEventByTitleAndStartDateTime(eventTitle: String, eventStartDateTime: String): Int
+
     @Query("SELECT * FROM Event")
     fun getEvents():LiveData<List<Event>>
 
