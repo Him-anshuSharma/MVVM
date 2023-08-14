@@ -1,5 +1,8 @@
 package com.himanshu.mvvm.ui.home.calendar
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import android.view.View
@@ -82,6 +85,18 @@ class CalendarViewModel(
         return dayList.toList()
     }
 
+    fun createNotificationChannel(context: Context){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            val name = "CalendarEventReminder"
+            val description = "Channel For Events Reminder"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("EventsNotification_Himanshu",name,importance)
+            channel.description = description
+            val notificationManager = context.applicationContext.getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+
+        }
+    }
 
     fun getCurrDate(): LocalDate = date
 

@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.data.db.entities.Event
@@ -12,6 +13,7 @@ import com.himanshu.mvvm.util.ApiException
 import com.himanshu.mvvm.util.Coroutines
 import com.himanshu.mvvm.util.NoInternetException
 import com.himanshu.mvvm.util.lazyDeferred
+import kotlinx.coroutines.launch
 
 class EventViewModel(
     private val repository: EventsRepository
@@ -52,7 +54,7 @@ class EventViewModel(
 
     fun addEvent(view: View){
         listener?.onStarted()
-        Coroutines.main {
+        viewModelScope.launch {
             try{
                 val response = repository.addEvent(
                     title!!,
@@ -66,7 +68,7 @@ class EventViewModel(
                     Coroutines.IO {
                         repository.saveEvents(it)
                     }
-                    return@main
+                    return@launch
                 }
                 listener?.onFailure(response.isSuccessful.toString())
             }catch (e: ApiException){

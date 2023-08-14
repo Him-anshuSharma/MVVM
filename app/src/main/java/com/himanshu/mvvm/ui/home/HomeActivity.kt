@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.databinding.ActivityHomeBinding
 import com.himanshu.mvvm.ui.auth.LoginActivity
+import com.himanshu.mvvm.util.Coroutines
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.closestDI
@@ -25,6 +26,7 @@ class HomeActivity : AppCompatActivity(), DIAware {
     private var toolbar: Toolbar? = null
     private var navView: NavigationView? = null
     private var drawerLayout: DrawerLayout? = null
+    private lateinit var viewModel: HomeActivityViewModel
 
 
     override val di: DI by closestDI()
@@ -36,8 +38,7 @@ class HomeActivity : AppCompatActivity(), DIAware {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
-        val viewModel:HomeActivityViewModel = ViewModelProvider(owner = this, factory = factory)[HomeActivityViewModel::class.java]
+        viewModel = ViewModelProvider(owner = this, factory = factory)[HomeActivityViewModel::class.java]
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -84,6 +85,15 @@ class HomeActivity : AppCompatActivity(), DIAware {
 
         drawerLayout?.addDrawerListener(toggle)
         toggle.syncState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Coroutines.main {
+            viewModel.events.await().observeForever{
+                viewModel.setEventsAlarm(it)
+            }
+        }
     }
 
     override fun onNavigateUp(): Boolean {

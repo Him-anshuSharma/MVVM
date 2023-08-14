@@ -5,17 +5,20 @@ import android.provider.ContactsContract.Data
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.himanshu.mvvm.data.db.entities.Alarm
 import com.himanshu.mvvm.data.db.entities.Event
 import com.himanshu.mvvm.data.db.entities.User
 
 
 @Database(
-    entities = [User::class,Event::class],
+    entities = [User::class,Event::class,Alarm::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase(){
+    abstract fun getAlarmDao(): AlarmDao
     abstract fun getUserDao(): UserDao
     abstract fun getEventDao(): EventDao
+
     companion object{
         @Volatile
         private var instance:AppDatabase? = null

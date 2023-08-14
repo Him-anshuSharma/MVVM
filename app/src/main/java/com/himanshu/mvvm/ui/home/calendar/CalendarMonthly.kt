@@ -15,12 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.data.db.entities.Event
-import com.himanshu.mvvm.data.models.EventsByDates
 import com.himanshu.mvvm.databinding.FragmentCalendarMonthlyBinding
 import com.himanshu.mvvm.util.Coroutines
-import com.himanshu.mvvm.util.snackbar
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
@@ -47,6 +43,8 @@ class CalendarMonthly : Fragment(), DIAware {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calendar_monthly, container, false)
 
         viewModel = ViewModelProvider(requireActivity(), factory)[CalendarViewModel::class.java]
+
+        viewModel.createNotificationChannel(requireContext())
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this

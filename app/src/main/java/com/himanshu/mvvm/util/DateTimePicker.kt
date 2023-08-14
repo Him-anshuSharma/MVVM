@@ -31,7 +31,7 @@ class DateTimePicker(private val context: Context) {
             { _, year, month, dayOfMonth ->
                 calendar[Calendar.YEAR] = year
                 calendar[Calendar.MONTH] = month
-                calendar[Calendar.DAY_OF_MONTH] = dayOfMonth+1
+                calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
                 val timePickerDialog = TimePickerDialog(context,
                     R.style.PurpleDatePickerDialog,
                     { _, hourOfDay, minute ->
