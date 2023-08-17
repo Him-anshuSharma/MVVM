@@ -3,6 +3,7 @@ package com.himanshu.mvvm.ui.home.calendar;
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.himanshu.mvvm.R
@@ -34,7 +35,7 @@ class CalendarDayEventAdapter(private val events: List<Event>) :
         val time = offsetDateTime.toLocalTime()
         holder.titleTextView.text = event.title
         holder.descriptionTextView.text = event.description
-        holder.datesTextView.text = "Start: ${date} ${time}"
+        holder.datesTextView.text = "Start: ${date}\nTime: ${time}"
         holder.locationTextView.text = event.location
 
     }

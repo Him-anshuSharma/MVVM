@@ -101,6 +101,10 @@ class CalendarThreeDays : Fragment(), DIAware {
                 )
             })
         }
+        val events = viewModel.getDayEvents(viewModel.getCurrDate())
+        Log.d("TEST",events.toString())
+        binding.calendarThreeDaysNoEvents.visibility =
+            if (events.isEmpty()) View.VISIBLE else View.GONE
         binding.calendarThreeDaysRV.layoutManager = LinearLayoutManager(context)
         binding.calendarThreeDaysRV.adapter = CalendarDayEventAdapter(
             viewModel.getDayEvents(
@@ -146,7 +150,6 @@ class CalendarThreeDays : Fragment(), DIAware {
                     }
                     else{
                         val textView = v as TextView
-                        Toast.makeText(v.context,textView.text.toString(),Toast.LENGTH_SHORT).show()
                         for(tv in textViews){
                             if(tv?.text.toString() == textView.text.toString()){
                                 tv?.setTextColor(Color.WHITE)
@@ -157,6 +160,11 @@ class CalendarThreeDays : Fragment(), DIAware {
                                 tv?.setBackgroundColor(Color.TRANSPARENT)
                             }
                         }
+
+                        val events = viewModel.getDayEvents(LocalDate.of(viewModel.getCurrDate().year,viewModel.getCurrDate().month,textView.text.toString().toInt()))
+                        Log.d("TEST",events.toString())
+                        binding.calendarThreeDaysNoEvents.visibility =
+                            if (events.isEmpty()) View.VISIBLE else View.GONE
                         binding.calendarThreeDaysRV.adapter = CalendarDayEventAdapter(
                             viewModel.getDayEvents(
                                 LocalDate.of(viewModel.getCurrDate().year,viewModel.getCurrDate().month,textView.text.toString().toInt())

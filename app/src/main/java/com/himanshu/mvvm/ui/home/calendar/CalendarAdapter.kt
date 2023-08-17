@@ -54,8 +54,6 @@ class CalendarAdapter(private val data: List<String>,private val eventsByDate: H
                 }
             }
         }
-        Log.d("date", data[position])
-        Log.d("events",events.toString())
         val adapter = CalendarCellAdapter(events)
         holder.eventsRV.layoutManager = LinearLayoutManager(holder.eventsRV.context,LinearLayoutManager.HORIZONTAL,false)
         holder.eventsRV.adapter = adapter

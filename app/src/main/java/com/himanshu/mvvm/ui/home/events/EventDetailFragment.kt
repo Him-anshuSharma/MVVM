@@ -52,7 +52,6 @@ class EventDetailFragment() : Fragment(),DIAware {
             when (item.itemId) {
                 R.id.action_delete -> {
                     Coroutines.main {
-                        Log.d("Event",event.toString())
                         if(viewModel.deleteEvent(event)){
                             deleteFromCache(event)
                             binding.toolbar.snackbar("Event Deleted")

@@ -95,7 +95,6 @@ class CalendarMonthly : Fragment(), DIAware {
         Coroutines.main {
             events.await().observeForever{
                 eventsByDate = viewModel.getEventsByDate(it)
-                Log.d("Him",eventsByDate.toString())
                 adapter = CalendarAdapter(
                     dayList.value!!,
                     eventsByDate,

@@ -15,10 +15,8 @@ class AlarmRepository(
 
     suspend fun addAlarm(alarm: Alarm){
         if(alarm.Time < System.currentTimeMillis()){
-            Log.d("HIM" ,alarm.eventName + " Cancel")
             return
         }
-        Log.d("HIM",alarm.eventName + " Schedule")
         db.getAlarmDao().upsert(alarm)
         notificationController.startAlarm(alarm.Time,alarm.AlarmChannelId,alarm.eventName)
     }

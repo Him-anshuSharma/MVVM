@@ -44,7 +44,6 @@ class HomeActivityViewModel(
                 )
             )
             Coroutines.main {
-//                Log.d("Di","Scheduled")
                 alarmRepository.addAlarm(alarms.last())
             }
         }
