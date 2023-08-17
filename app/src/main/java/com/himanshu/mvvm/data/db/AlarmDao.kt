@@ -14,4 +14,5 @@ interface AlarmDao {
 
     @Query( "SELECT * FROM Alarm where EventId = :eventId")
     fun getAlarmChannelId(eventId:String): LiveData<Alarm>
+
 }

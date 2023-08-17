@@ -9,5 +9,5 @@ data class Alarm(
     val EventId: String,
     @PrimaryKey(autoGenerate = false)
     val AlarmChannelId: Int,
-    val Time: Long
+    val Time: Long,
 )
