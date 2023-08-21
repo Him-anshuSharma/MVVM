@@ -1,7 +1,6 @@
 package com.himanshu.mvvm.data.network
 
-import com.himanshu.mvvm.data.network.responses.AuthResponse
-import com.himanshu.mvvm.data.network.responses.EventResponse
+import com.himanshu.mvvm.data.network.responses.*
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -9,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 interface MyApi {
+    //done
     @FormUrlEncoded
     @POST("login")
     suspend fun userLogin(
@@ -16,6 +16,7 @@ interface MyApi {
         @Field("password") password: String
     ) : Response<AuthResponse>
 
+    //done
     @FormUrlEncoded
     @POST("signup")
     suspend fun userSignUp(
@@ -24,6 +25,7 @@ interface MyApi {
         @Field("password") password: String
     ) : Response<AuthResponse>
 
+    //done
     @FormUrlEncoded
     @POST("add-user-event")
     suspend fun addEvent(
@@ -35,6 +37,7 @@ interface MyApi {
         @Field("uid") uid: Int,
     ): Response<EventResponse>
 
+    //done
     @FormUrlEncoded
     @POST("delete-event")
     suspend fun deleteEvent(
@@ -45,8 +48,43 @@ interface MyApi {
         @Field("location") location: String,
     ): Response<EventResponse>
 
+    //done
     @GET("get-events/{id}")
     suspend fun getEvents(@Path("id") uid: Int?): Response<EventResponse>
+
+    //done
+    @FormUrlEncoded
+    @POST("send-friend-request")
+    suspend fun sendFriendRequest(
+        @Field("senderUserId") senderUserId: String,
+        @Field("receiverUserId") receiverUserId: String
+    ): Response<FriendRequestResponse>
+
+    //done
+    @FormUrlEncoded
+    @POST("accept-friend-request")
+    suspend fun acceptFriendRequest(
+        @Field("requestId") requestId: String
+    ): Response<FriendRequestResponse>
+
+    //done
+    @FormUrlEncoded
+    @POST("reject-friend-request")
+    suspend fun rejectFriendRequest(
+        @Field("requestId") requestId: String
+    ): Response<FriendRequestResponse>
+
+    //done
+    @GET("get-pending-requests/{userId}")
+    suspend fun getPendingFriendRequests(@Path("userId") userId: Int?): Response<PendingFriendRequestsResponse>
+
+    //done
+    @GET("get-user-id/{username}")
+    suspend fun getUserIdByUsername(@Path("username") username: String): Response<GetUserIdResponse>
+
+    //done
+    @GET("/get-friends/{userId}")
+    suspend fun getFriendsList(@Path("userId")userId : Int) : Response<FriendListResponse>
 
     companion object {
         operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): MyApi {
