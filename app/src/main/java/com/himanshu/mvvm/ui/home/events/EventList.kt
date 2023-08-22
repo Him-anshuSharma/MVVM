@@ -1,7 +1,6 @@
 package com.himanshu.mvvm.ui.home.events
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +13,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.data.db.entities.Event
-import com.himanshu.mvvm.data.models.EventsByDates
 import com.himanshu.mvvm.databinding.FragmentEventListBinding
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance
-import java.time.LocalDate
 
-class EventListFragment : Fragment(), DIAware {
+class EventList : Fragment(), DIAware {
 
     private lateinit var events: LiveData<List<Event>>
     private lateinit var viewModel: EventViewModel

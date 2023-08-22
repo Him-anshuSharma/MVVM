@@ -6,7 +6,7 @@ data class PendingFriendRequestsResponse(
 )
 
 data class PendingFriendRequest(
-    val id: String,
+    val id: String, //requestId
     val senderUserId: Int,
     val receiverUserId: Int,
     val status: String,

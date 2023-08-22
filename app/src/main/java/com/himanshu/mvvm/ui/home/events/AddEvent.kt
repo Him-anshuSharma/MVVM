@@ -21,7 +21,7 @@ import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance
 
-class AddEventFragment : Fragment(),DIAware,EventsListener {
+class AddEvent : Fragment(),DIAware,EventsListener {
 
 
     private var progressBar: ProgressBar? = null

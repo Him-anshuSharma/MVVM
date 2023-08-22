@@ -56,8 +56,8 @@ interface MyApi {
     @FormUrlEncoded
     @POST("send-friend-request")
     suspend fun sendFriendRequest(
-        @Field("senderUserId") senderUserId: String,
-        @Field("receiverUserId") receiverUserId: String
+        @Field("senderUserId") senderUserId: Int,
+        @Field("receiverUserId") receiverUserId: Int
     ): Response<FriendRequestResponse>
 
     //done

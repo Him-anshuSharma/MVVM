@@ -1,7 +1,6 @@
 package com.himanshu.mvvm.ui.home.events
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,20 +8,18 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.data.db.entities.Event
 import com.himanshu.mvvm.databinding.FragmentEventDetailBinding
 import com.himanshu.mvvm.util.Coroutines
 import com.himanshu.mvvm.util.snackbar
-import kotlinx.coroutines.launch
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance
 
-class EventDetailFragment() : Fragment(),DIAware {
+class EventDetail() : Fragment(),DIAware {
 
     override val di: DI by closestDI()
     private lateinit var viewModel: EventViewModel

@@ -76,6 +76,9 @@ class HomeActivity : AppCompatActivity(), DIAware {
                         finish()
                     }
                 }
+                R.id.list_friends -> {
+                    navController?.navigate(R.id.friends)
+                }
             }
 
             drawerLayout?.closeDrawers()
