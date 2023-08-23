@@ -11,6 +11,16 @@ import com.himanshu.mvvm.data.network.responses.Friend
 import org.w3c.dom.Text
 
 class FriendListAdapter(private var friendsList: List<Friend>):RecyclerView.Adapter<FriendListAdapter.FriendViewHolder>() {
+
+
+    //one func on click
+
+    private lateinit var listener: FriendsListClickListener
+
+    fun setListener(listener : FriendsListClickListener){
+        this.listener = listener
+    }
+
     class FriendViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView) {
         val username: TextView = itemView.findViewById(R.id.FriendUsername)
     }
@@ -22,6 +32,9 @@ class FriendListAdapter(private var friendsList: List<Friend>):RecyclerView.Adap
 
     override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
         holder.username.text = friendsList[position].username
+        holder.itemView.setOnClickListener {
+            listener.onClick(friendsList[position])
+        }
     }
 
     fun updateFriendsList(updatedFriendsList: List<Friend>){

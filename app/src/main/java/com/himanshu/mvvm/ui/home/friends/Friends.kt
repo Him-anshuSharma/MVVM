@@ -1,22 +1,21 @@
 package com.himanshu.mvvm.ui.home.friends
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.himanshu.mvvm.R
 import com.himanshu.mvvm.data.db.entities.User
 import com.himanshu.mvvm.data.network.responses.Friend
 import com.himanshu.mvvm.util.Coroutines
-import kotlinx.coroutines.launch
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
@@ -44,7 +43,16 @@ class Friends : Fragment(), DIAware {
 
         val friendsRecyclerView = view.findViewById<RecyclerView>(R.id.friendsRecyclerView)
         friendsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        friendsRecyclerView.adapter = FriendListAdapter(listOf())
+        val adapter = FriendListAdapter(listOf())
+        val listener = object : FriendsListClickListener {
+            override fun onClick(friend: Friend) {
+                val bundle = Bundle()
+                bundle.putSerializable("friend",friend)
+                findNavController().navigate(R.id.friendDetails,bundle)
+            }
+        }
+        adapter.setListener(listener)
+        friendsRecyclerView.adapter = adapter
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
@@ -60,7 +68,7 @@ class Friends : Fragment(), DIAware {
         }
 
         friendList.observeForever {
-            friendsRecyclerView.adapter = FriendListAdapter(it)
+            adapter.updateFriendsList(it)
         }
     }
 }

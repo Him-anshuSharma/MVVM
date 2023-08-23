@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.himanshu.mvvm.data.network.responses.Friend
+import com.himanshu.mvvm.data.network.responses.FriendRequestResponse
 import com.himanshu.mvvm.data.repository.UserRepository
 
 class FriendsViewModel(
@@ -29,5 +30,11 @@ class FriendsViewModel(
     suspend fun getPendingFriendRequests(userId: Int) = friendsRepository.getPendingFriendRequests(userId)
 
     suspend fun getUserIdByUsername(username:String) = friendsRepository.getUserIdByUsername(username)
+
+    suspend fun removeFriend(friend: Friend) : FriendRequestResponse {
+        val response = friendsRepository.removeFriend(friend._id)
+        getFriendsList(user.value?.id!!)
+        return response
+    }
 
 }

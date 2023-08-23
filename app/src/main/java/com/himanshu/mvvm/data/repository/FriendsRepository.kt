@@ -19,4 +19,6 @@ class FriendsRepository(
     suspend fun getUserIdByUsername(username: String) = apiRequest { api.getUserIdByUsername(username) }
 
     suspend fun getFriendsList(userId: Int) = apiRequest { api.getFriendsList(userId) }
+
+    suspend fun removeFriend(friendshipId: String) = apiRequest { api.removeFriend(friendshipId) }
 }

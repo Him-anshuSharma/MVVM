@@ -1,0 +1,36 @@
+<!-- activity_main.xml -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.himanshu.mvvm.ui.home.friends.FriendsViewModel" /> <!-- Replace with your ViewModel class -->
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:gravity="center"
+            android:textAlignment="center"
+            android:id="@+id/FriendDetailUsername"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="@string/username"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:paddingEnd="8dp" />
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/deleteFriendshipButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete" />
+    </LinearLayout>
+</layout>

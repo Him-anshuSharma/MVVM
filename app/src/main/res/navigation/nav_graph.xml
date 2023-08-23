@@ -34,4 +34,8 @@
         android:id="@+id/friends"
         android:name="com.himanshu.mvvm.ui.home.friends.Friends"
         android:label="Friends" />
+    <fragment
+        android:id="@+id/friendDetails"
+        android:name="com.himanshu.mvvm.ui.home.friends.FriendDetails"
+        android:label="FriendDetails" />
 </navigation>

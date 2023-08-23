@@ -14,10 +14,10 @@
         android:id="@+id/fragCalendar"
         android:title="Calendar" />
     <item
-        android:id="@+id/logout"
-        android:title="Logout" />
-    <item
         android:id="@+id/list_friends"
         android:title="Friends"
         />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
 </menu>

@@ -1,5 +1,6 @@
 package com.himanshu.mvvm.data.network
 
+import androidx.lifecycle.ReportFragment
 import com.himanshu.mvvm.data.network.responses.*
 import okhttp3.OkHttpClient
 import retrofit2.Response
@@ -85,6 +86,9 @@ interface MyApi {
     //done
     @GET("/get-friends/{userId}")
     suspend fun getFriendsList(@Path("userId")userId : Int) : Response<FriendListResponse>
+
+    @POST("delete-friendship/{friendshipId}")
+    suspend fun removeFriend(@Path("friendshipId")friendshipId: String) : Response<FriendRequestResponse>
 
     companion object {
         operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor): MyApi {
