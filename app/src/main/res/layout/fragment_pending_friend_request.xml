@@ -7,6 +7,7 @@
     tools:context=".ui.home.friends.PendingFriendRequest">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_gravity="center"
         android:id="@+id/pendingFriendRequestRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

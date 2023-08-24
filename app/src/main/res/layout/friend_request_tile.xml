@@ -2,17 +2,19 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/black"
+    android:layout_margin="20dp"
+    android:layout_gravity="center"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="36dp">
-
+    android:padding="10dp"
+    android:orientation="vertical">
     <TextView
         android:gravity="center"
         android:padding="12dp"
+        android:textColor="@color/white"
         android:id="@+id/pendingFriendRequestUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="Username"
         android:textSize="24sp" />
 
@@ -20,27 +22,19 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:backgroundTint="#4CAF50"
-            android:layout_weight="1"
+        <ImageButton
             android:id="@+id/PendingFriendRequestButtonAccept"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:text="Accept" />
-
-        <TextView
+            android:src="@drawable/tick"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:backgroundTint="#F44336"
+        <ImageButton
             android:layout_weight="1"
             android:id="@+id/PendingFriendRequestButtonReject"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:text="Reject" />
+            android:src="@drawable/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
 </LinearLayout>

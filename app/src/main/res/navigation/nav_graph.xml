@@ -42,4 +42,9 @@
         android:id="@+id/addFriend"
         android:name="com.himanshu.mvvm.ui.home.friends.AddFriend"
         android:label="AddFriend" />
+    <fragment
+        android:id="@+id/pendingFriendRequest"
+        android:name="com.himanshu.mvvm.ui.home.friends.PendingFriendRequest"
+        android:label="fragment_pending_friend_request"
+        tools:layout="@layout/fragment_pending_friend_request" />
 </navigation>

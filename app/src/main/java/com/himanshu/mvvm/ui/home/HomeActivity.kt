@@ -82,6 +82,9 @@ class HomeActivity : AppCompatActivity(), DIAware {
                 R.id.add_friend -> {
                     navController?.navigate(R.id.addFriend)
                 }
+                R.id.pending_friend_request -> {
+                    navController?.navigate(R.id.pendingFriendRequest)
+                }
             }
 
             drawerLayout?.closeDrawers()

@@ -22,6 +22,9 @@
         android:title="Add Friend"
         />
     <item
+        android:id="@+id/pending_friend_request"
+        android:title="Pending Requests"/>
+    <item
         android:id="@+id/logout"
         android:title="Logout" />
 </menu>
