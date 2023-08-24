@@ -38,4 +38,8 @@
         android:id="@+id/friendDetails"
         android:name="com.himanshu.mvvm.ui.home.friends.FriendDetails"
         android:label="FriendDetails" />
+    <fragment
+        android:id="@+id/addFriend"
+        android:name="com.himanshu.mvvm.ui.home.friends.AddFriend"
+        android:label="AddFriend" />
 </navigation>

@@ -31,7 +31,7 @@
             android:id="@+id/name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewModel.user.id)}"
+            android:text="@{String.valueOf(viewModel.user.username)}"
             android:textColor="#666666"
             android:textSize="24sp"
             android:layout_below="@id/welcome_message"

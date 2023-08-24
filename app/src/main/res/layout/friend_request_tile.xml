@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="36dp">
+
+    <TextView
+        android:gravity="center"
+        android:padding="12dp"
+        android:id="@+id/pendingFriendRequestUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Username"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:backgroundTint="#4CAF50"
+            android:layout_weight="1"
+            android:id="@+id/PendingFriendRequestButtonAccept"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="Accept" />
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:backgroundTint="#F44336"
+            android:layout_weight="1"
+            android:id="@+id/PendingFriendRequestButtonReject"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="Reject" />
+    </LinearLayout>
+
+</LinearLayout>
