@@ -59,12 +59,6 @@ class HomeActivity : AppCompatActivity(), DIAware {
                 R.id.fragHome -> {
                     navController?.navigate(R.id.profileFragment)
                 }
-//                R.id.fragEvent -> {
-//                    navController?.navigate(R.id.eventFragment)
-//                }
-//                R.id.fragAddEvent -> {
-//                    navController?.navigate(R.id.addEventFragment)
-//                }
                 R.id.fragCalendar -> {
                     navController?.navigate(R.id.calendarMonthly)
                 }
