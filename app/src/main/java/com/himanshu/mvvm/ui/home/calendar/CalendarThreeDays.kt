@@ -45,7 +45,7 @@ class CalendarThreeDays : Fragment(), DIAware {
         val binding: FragmentCalendarThreeDaysBinding =
             DataBindingUtil.inflate(layoutInflater, R.layout.fragment_calendar_three_days, container, false)
 
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+//        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
         viewModel = ViewModelProvider(requireActivity(), factory)[CalendarViewModel::class.java]
 

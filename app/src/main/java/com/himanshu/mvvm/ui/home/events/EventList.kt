@@ -77,7 +77,7 @@ class EventList : Fragment(), DIAware {
             }
         )
         binding.EventsRecyclerView.adapter = eventListAdapter
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+//        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         return binding.root
     }
 }

@@ -54,7 +54,7 @@ class Friends : Fragment(), DIAware {
         adapter.setListener(listener)
         friendsRecyclerView.adapter = adapter
 
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+//        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
         user = viewModel.user
         friendList = viewModel.friends

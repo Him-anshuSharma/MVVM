@@ -29,7 +29,7 @@ class ProfileFragment : Fragment(),DIAware {
         val viewModel = ViewModelProvider(this,factory).get(ProfileViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+//        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         return binding.root
     }
 }

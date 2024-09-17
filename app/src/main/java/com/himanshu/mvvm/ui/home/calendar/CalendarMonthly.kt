@@ -49,7 +49,7 @@ class CalendarMonthly : Fragment(), DIAware {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+//        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
         dayList = viewModel.getMonthListLiveData()
         dayList.observe(viewLifecycleOwner, Observer {
