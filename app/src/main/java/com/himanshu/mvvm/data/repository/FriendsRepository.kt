@@ -14,7 +14,7 @@ class FriendsRepository(
 
     suspend fun rejectFriendRequest(requestId: String) = apiRequest { api.rejectFriendRequest(requestId) }
 
-    suspend fun getPendingFriendRequests(userId: Int?) = apiRequest { api.getPendingFriendRequests(userId) }
+    suspend fun getPendingFriendRequests(userId: Int) = apiRequest { api.getPendingFriendRequests(userId) }
 
     suspend fun getUserIdByUsername(username: String) = apiRequest { api.getUserIdByUsername(username) }
 
