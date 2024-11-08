@@ -1,6 +1,7 @@
 package com.himanshu.mvvm.ui.auth
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.himanshu.mvvm.data.repository.UserRepository
@@ -21,7 +22,7 @@ class AuthViewModel(
 
     fun getLoggedInUser() = repository.getUser()
 
-    fun onLoginButtonClicked(view: View) {
+    fun onLoginButtonClicked(/*view: View*/) {
         authListener?.onStarted()
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             authListener?.onFailure("Invalid Email or Password")
@@ -30,6 +31,7 @@ class AuthViewModel(
         Coroutines.main {
             try {
                 val authResponse = repository.userLogin(email!!,password!!)
+                Log.d("Login response", authResponse.message.toString())
                 authResponse.user.let {
                     authListener?.onSuccess(it)
                     Coroutines.IO {
@@ -37,12 +39,12 @@ class AuthViewModel(
                     }
                     return@main
                 }
-                authListener?.onFailure(authResponse.message!!)
             }catch (e: ApiException){
                 authListener?.onFailure(e.message!!)
             }catch (e:NoInternetException){
                 authListener?.onFailure((e.message!!))
             }catch (e:Exception){
+                Log.d("Error",e.message.toString())
                 authListener?.onFailure(e.message!!)
             }
         }
@@ -54,7 +56,7 @@ class AuthViewModel(
         }
     }
 
-    fun onSignupButtonClicked(view:View) {
+    fun onSignupButtonClicked(/*view:View*/) {
         authListener?.onStarted()
         if (username.isNullOrEmpty()) {
             authListener?.onFailure("Username Required")
@@ -82,7 +84,6 @@ class AuthViewModel(
                     }
                     return@main
                 }
-                authListener?.onFailure(authResponse.message!!)
             }catch (e: ApiException){
                 authListener?.onFailure(e.message!!)
             }catch (e:NoInternetException){

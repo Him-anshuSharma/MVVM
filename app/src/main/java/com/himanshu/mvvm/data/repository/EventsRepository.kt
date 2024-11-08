@@ -90,7 +90,7 @@ class EventsRepository(
     private suspend fun fetchEvents() {
         if (isFetchNeeded()) {
             if (uid != -1) {
-                val response = apiRequest { myApi.getEvents(user.value?.id) }
+                val response = apiRequest { myApi.getUserEvents(user.value?.id!!) }
                 events.postValue(response.events)
             }
         }

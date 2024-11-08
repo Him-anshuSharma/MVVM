@@ -2,7 +2,6 @@ package com.himanshu.mvvm.data.network
 
 
 import android.util.Log
-import android.widget.Toast
 import com.himanshu.mvvm.util.ApiException
 import org.json.JSONException
 import org.json.JSONObject
@@ -30,7 +29,8 @@ abstract class SafeApiRequest {
                 throw ApiException(message = message.toString())
             }
         }catch (e:Exception){
-            throw ApiException(e.message.toString())
+            Log.d("Error",e.toString())
+            throw ApiException(e.toString())
         }
     }
 }
